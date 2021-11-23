@@ -21,39 +21,40 @@ public class ClienteController {
 
 
     @GetMapping("/cliente/{usuarios}/{contras}")
-    public ResponseEntity<String> getUsuario(@PathVariable("usuarios") String usuario, @PathVariable("contras") String contra) throws NonExistentCustomerException, NonExistentCustomer2Exception{
-        Optional< Cliente> cliente = service.getUsuario(usuario, contra);
+    public ResponseEntity<String> getUsuario(@PathVariable("usuarios") String usuario, @PathVariable("contras") String contra) throws NonExistentCustomerException, NonExistentCustomer2Exception {
+        Optional<Cliente> cliente = service.getUsuario(usuario, contra);
 
+        Integer contador = 0;
+        String estado = "Bloqueado";
+        String estado2 = "Desbloqueado";
+        String dato = service.searchContra(usuario);
         Cliente cl = new Cliente();
 
-        String dato = service.searchContra(usuario);
-        Integer contador = 0;
-
-
-        if(usuario == null)
-        {
+        if (usuario == null) {
             throw new NonExistentCustomerException();
         }
 
-        if(dato.equals(contra)) {
-            return ResponseEntity.ok("Usuario correcto");
-
+        if (estado.equals(service.validarStatus(usuario))) {
+            return ResponseEntity.ok("Lo sentimos tu usuario esta bloqueado");
         }
 
-        //Valida si los campos estan vacios
+        if (dato.equals(contra)) {
+
+                return ResponseEntity.ok("Usuario correcto");
+        }
+
+        //Valida si la contraseña no es correcta
         if (contra != dato) {
-            contador +=contador;
-            if (contador > 3)
-            {
-               cl.setStatus ("bloqueado");
-            }
-            else
-                cl.setStatus("libre");
 
-            throw new NonExistentCustomer2Exception();
+            contador = contador + 1;
+
+            if (contador >2) {
+                service.updateStatus(estado, usuario);
+            } else
+                service.updateStatus(estado2, usuario);
         }
 
-return ResponseEntity.ok(usuario);
+        throw new NonExistentCustomer2Exception();
 
     }
 }
