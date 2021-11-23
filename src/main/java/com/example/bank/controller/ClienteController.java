@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.criteria.CriteriaBuilder;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class ClienteController {
@@ -19,30 +20,40 @@ public class ClienteController {
     private ClienteService service;
 
 
-    @GetMapping("/cliente/{usuarios}/{contra}")
-    public ResponseEntity<Cliente> getUsuario(@PathVariable("usuarios") String usuario, @PathVariable("contra") String contra) throws NonExistentCustomerException, NonExistentCustomer2Exception{
-        List<Cliente> cliente = service.getUsuario(usuario, contra);
+    @GetMapping("/cliente/{usuarios}/{contras}")
+    public ResponseEntity<String> getUsuario(@PathVariable("usuarios") String usuario, @PathVariable("contras") String contra) throws NonExistentCustomerException, NonExistentCustomer2Exception{
+        Optional< Cliente> cliente = service.getUsuario(usuario, contra);
+
+        Cliente cl = new Cliente();
+
         String dato = service.searchContra(usuario);
         Integer contador = 0;
 
-        //Valida si los campos estan vacios
-        if (cliente.isEmpty()) {
+
+        if(usuario == null)
+        {
             throw new NonExistentCustomerException();
         }
 
-        if (service.searchContra(usuario) != contra) {
+        if(dato.equals(contra)) {
+            return ResponseEntity.ok("Usuario correcto");
 
-            System.out.println("Contarseña incorrecta");
+        }
+
+        //Valida si los campos estan vacios
+        if (contra != dato) {
             contador +=contador;
+            if (contador > 3)
+            {
+               cl.setStatus ("bloqueado");
+            }
+            else
+                cl.setStatus("libre");
+
+            throw new NonExistentCustomer2Exception();
         }
-        if (service.statusCliente(contador)== true);
-        {
-            System.out.println("tu cuenta se ha bloqueadp");
-        }
 
-        return ResponseEntity.ok(cliente.get(0));
-
-
+return ResponseEntity.ok(usuario);
 
     }
 }

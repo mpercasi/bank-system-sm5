@@ -7,12 +7,13 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 
 public interface ClienteDao extends CrudRepository<Cliente, Integer> {
 
     @Query(value = "select * from clientes where nombre= :nombre and contra=:contra", nativeQuery = true)
-    public List<Cliente> findTeacherByNombreAndEdadPorJPQueryvalidarusuario(String nombre, String contra);
+    public Optional <Cliente> findTeacherByNombreAndEdadPorJPQueryvalidarusuario(String nombre, String contra);
 
 
     @Query(value = "select contra from clientes where nombre =:nombre ", nativeQuery = true)

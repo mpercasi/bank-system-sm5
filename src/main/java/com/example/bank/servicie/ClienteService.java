@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClienteService {
@@ -16,27 +17,18 @@ public class ClienteService {
     ClienteDao clienteDao;
 
 
-    public List<Cliente> getUsuario(String usuario, String contra) {
+    public Optional <Cliente> getUsuario(String usuario, String contra) {
         return clienteDao.findTeacherByNombreAndEdadPorJPQueryvalidarusuario(usuario,contra);
     }
 
-    public List<Cliente> searchCliente(String usuario, String contra) {
+    public Optional <Cliente> searchCliente(String usuario, String contra) {
     return clienteDao.findTeacherByNombreAndEdadPorJPQueryvalidarusuario(usuario,contra);
     }
 
     public String searchContra(String usuario) {
-       return clienteDao.findClienteByContraPorJPQueryvalidarcontra(usuario);
+        String contra = clienteDao.findClienteByContraPorJPQueryvalidarcontra(usuario) ;
+       return contra;
 
     }
-    public boolean statusCliente(Integer intentos)
-    {
-        for (int i=0; i<=4; i++ )
-        {
-            if (i>3)
-            {
-                return true;
-            }
-        }
-        return  false;
-    }
+
 }

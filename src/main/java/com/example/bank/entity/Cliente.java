@@ -22,10 +22,12 @@ public class Cliente {
 
     private String nombre;
     private String contra;
+    private String status;
 
-    public Cliente(String nombre, String contra) {
+    public Cliente(String nombre, String contra, String status) {
         this.nombre = nombre;
         this.contra = contra;
+        this.status = status;
     }
 
     public Cliente()
