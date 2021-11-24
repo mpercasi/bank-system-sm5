@@ -1,6 +1,9 @@
 package com.example.bank.configuration;
 
-import com.example.bank.exception.*;
+import com.example.bank.exception.crudUsuario.*;
+import com.example.bank.exception.inicioDeSesion.BlockedUser;
+import com.example.bank.exception.inicioDeSesion.NonExistentCustomer2Exception;
+import com.example.bank.exception.inicioDeSesion.NonExistentCustomerException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -60,5 +63,21 @@ public class ExceptionClienteHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, "La contraseña debe contener minimo un caracter alfanumerico",
                 new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
+//Excepciones De Inicio de Sesion  *************************************************************************
+    @ExceptionHandler({NonExistentCustomerException.class})
+    protected ResponseEntity<Object> handleNotFound(Exception ex, WebRequest request)
+    {
+        return handleExceptionInternal(ex, "Ese usuario no existe", new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+    }
 
-}
+    @ExceptionHandler({NonExistentCustomer2Exception.class})
+    protected ResponseEntity<Object> handleNotContra(Exception ex, WebRequest request)
+    {
+        return handleExceptionInternal(ex, "La contraseña es incorrecta", new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+    }
+
+    @ExceptionHandler({BlockedUser.class})
+    protected ResponseEntity<Object> handleDuplicate(Exception ex, WebRequest request)
+    {
+        return handleExceptionInternal(ex, "El usuario esta bloqueado", new HttpHeaders(), HttpStatus.BAD_REQUEST,request);
+    }}

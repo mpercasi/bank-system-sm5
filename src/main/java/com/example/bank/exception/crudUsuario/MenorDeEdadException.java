@@ -1,4 +1,4 @@
-package com.example.bank.exception;
+package com.example.bank.exception.crudUsuario;
 
 public class MenorDeEdadException extends Throwable{
 }

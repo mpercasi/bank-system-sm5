@@ -1,20 +1,38 @@
 package com.example.bank.service;
 
+import com.example.bank.dao.ClienteDao;
+import com.example.bank.entity.Cliente;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class ClienteServices {
 
-    public String busquedaNumeros(String contra){
-        char[] contraChar = contra.toCharArray();
-        char[] numero = {'1','2','3','4','5','6','7','8','9','0'};
-        for(int i = 0; i<numero.length;i++){
-            for (int j=0; j<contraChar.length;j++){
-                if (numero[i]==contraChar[j]){
-                    return "1";
-                }
-            }
-        }
-        return "2";
+    @Autowired
+    ClienteDao clienteDao;
+
+    public Optional<Cliente> getUsuario(String usuario, String contra) {
+        return clienteDao.findClienteValidarUsuario(usuario,contra);
     }
+
+    public Optional <Cliente> searchCliente(String usuario, String contra) {
+        return clienteDao.findClienteValidarUsuario(usuario,contra);
+    }
+
+    public String searchContra(String usuario) {
+        String contra = clienteDao.finClienteValidarcontra(usuario) ;
+        return contra;
+
+    }
+
+    public void updateStatus(String estado, String usuario) {
+        clienteDao.updateCustomer(estado,usuario);
+    }
+
+    public String validarStatus(String usuario) {
+        return clienteDao.finClienteValidarstatus(usuario);
+    }
+
 }

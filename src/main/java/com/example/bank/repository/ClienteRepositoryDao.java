@@ -10,6 +10,6 @@ import java.util.List;
 @Transactional
 public interface ClienteRepositoryDao extends CrudRepository<Cliente, Integer> {
 
-    @Query(value = "Select t.usuario from Cliente t where t.usuario=:usuario")
-    public List<String> findCliente(String usuario);
+    /*@Query(value = "Select t.usuario from Cliente t where t.usuario=:usuario")
+    public List<String> findCliente(String usuario);*/
 }

@@ -2,13 +2,11 @@ package com.example.bank.repository;
 
 import com.example.bank.dao.ClienteDao;
 import com.example.bank.entity.Cliente;
-import com.example.bank.exception.ClienteExistenteException;
+import com.example.bank.exception.crudUsuario.ClienteExistenteException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public class ClienteRepository {
@@ -20,12 +18,9 @@ public class ClienteRepository {
     @Autowired
     private ClienteRepositoryDao clienteRepositoryDao;
 
-
     public void obtenerPorUsuario(String usuario) throws ClienteExistenteException {
-        System.out.println(clienteRepositoryDao.findCliente(usuario));
-
-        if(!clienteRepositoryDao.findCliente((usuario)).isEmpty()){
-
+        System.out.println(clienteDao.findCliente(usuario));
+        if(!clienteDao.findCliente((usuario)).isEmpty()){
             throw new ClienteExistenteException();
         }
     }
