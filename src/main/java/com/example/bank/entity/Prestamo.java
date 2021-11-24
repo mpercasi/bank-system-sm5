@@ -22,6 +22,7 @@ public class Prestamo {
     private String estado;
     private double monto;
     private int numPrestamo;
+    private int cuota;
     @OneToMany(cascade = {CascadeType.ALL})
     @Column(name="Prestamos")
     private List<Prestamo> obtenerPrestamos = new ArrayList<>();
