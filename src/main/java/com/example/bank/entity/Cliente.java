@@ -8,6 +8,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.lang.annotation.Target;
+import java.util.List;
+import java.util.Set;
 
 @Setter
 @Getter
@@ -18,16 +20,25 @@ public class Cliente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private  Integer id;
+    private  Integer idcliente;
+
+    /*//Con este mapeo me permite usar de manera implicita los Joins
+    @OneToMany(cascade = CascadeType.ALL)
+    @Column(name = "FkTarjeta")
+    private Set<TarjetaDebito> id;*/
+
 
     private String nombre;
     private String contra;
     private String status;
 
+
+
     public Cliente(String nombre, String contra, String status) {
         this.nombre = nombre;
         this.contra = contra;
         this.status = status;
+
     }
 
     public Cliente()

@@ -21,12 +21,18 @@ public interface ClienteDao extends CrudRepository<Cliente, Integer> {
     @Query(value = "select contra from clientes where nombre =:nombre ", nativeQuery = true)
     public String finClienteValidarcontra(String nombre);
 
+    @Query(value = "select nombre from clientes where nombre=:nombre ",nativeQuery = true)
+    public  String findClienteValidarUsuarioPago(String nombre);
+
+
     @Modifying
     @Query(value = "UPDATE clientes SET status =:status WHERE nombre=:nombre ", nativeQuery = true)
     void updateCustomer(String status,String nombre);
 
     @Query(value = "select status from clientes where nombre =:nombre ", nativeQuery = true)
     public String finClienteValidarstatus(String nombre);
+
+
 
 
 
