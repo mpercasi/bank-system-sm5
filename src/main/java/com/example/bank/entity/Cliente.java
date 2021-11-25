@@ -1,12 +1,8 @@
 package com.example.bank.entity;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.lang.annotation.Target;
-import java.util.List;
 
 @Setter
 @Getter
@@ -34,5 +30,8 @@ public class Cliente {
     public Cliente()
     {
 
+    }
+
+    public void getSaldo() {
     }
 }

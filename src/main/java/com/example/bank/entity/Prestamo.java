@@ -26,4 +26,8 @@ public class Prestamo {
     @OneToMany(cascade = {CascadeType.ALL})
     @Column(name="Prestamos")
     private List<Prestamo> obtenerPrestamos = new ArrayList<>();
+
+    public double getSaldo() {
+        return this.monto;
+    }
 }
